@@ -7,41 +7,48 @@ class BurgerIngredient extends Component {
   render ()
   {
     let ingredient = null;
+
     switch ( this.props.type ) {
       case ("bread-bottom"):
         ingredient = <div className={classes.BreadBottom}></div>;
+        console.log(ingredient);
         break;
       case ("bread-top"):
         ingredient = (
           <div className={classes.BreadTop}>
-            <div className={classes.Seeds1}</div>
-            <div className={classes.Seeds2}</div>
-          </div>;
-        ):
+            <div className={classes.Seeds1}></div>
+            <div className={classes.Seeds2}></div>
+          </div>
+        );
+        console.log(ingredient);
         break;
       case ("meat"):
-        ingredient = <div className={classes.Meat};
+        ingredient = <div className={classes.Meat}></div>
+        console.log(ingredient);
         break;
-      case ("heese"):
-        ingredient = <div className={classes.Cheese};
+      case ("cheese"):
+        ingredient = <div className={classes.Cheese}></div>
+        console.log(ingredient);
         break;
       case ("salad"):
-        ingredient = <div className={classes.Salad};
+        ingredient = <div className={classes.Salad}></div>
+        console.log(ingredient);
         break;
       case ("bacon"):
-        ingredient = <div className={classes.Salad};
+        ingredient = <div className={classes.Bacon}></div>
+        console.log(ingredient);
         break;
       default:
         ingredient = null;
         break;
-    }
+      }
     return ingredient;
   }
 }
 
 
-burgerIngredient.propTypes = {
+BurgerIngredient.propTypes = {
   type: PropTypes.string.isRequired
-};
+}
 
 export default BurgerIngredient;
