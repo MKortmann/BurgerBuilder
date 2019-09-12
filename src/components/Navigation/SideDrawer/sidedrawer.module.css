@@ -13,9 +13,9 @@
 }
 
 @media (min-width: 500px) {
-  .SideDrawer {
+  /* .SideDrawer {
     display: none;
-  }
+  } */
 }
 
 .Open {
