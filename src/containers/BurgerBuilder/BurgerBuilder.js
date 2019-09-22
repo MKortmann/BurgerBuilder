@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Aux from "../../hoc/Auxiliary/Auxiliary";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
@@ -96,31 +97,27 @@ class BurgerBuilder extends Component {
   }
 
   purchaseContinueHandler = () => {
-    //alert("You Continue!");
-    // .json is the end point used only for firebase
-    this.setState({loading: true});
-    const order ={
-      ingredients: this.state.ingredients,
-      price: this.state.totalPrice,
-      customer: {
-        name: "Marcelo Siqueiry",
-        address: {
-          street: "Teststreet 1",
-          zipCode: "41351",
-          country: "Germany"
-        },
-        email: "test@test.com"
-      }
+    const queryParams = [];
+    for (let i in this.state.ingredients) {
+
+      queryParams.push(encodeURIComponent(i) + "=" + encodeURIComponent(this.state.ingredients[i]));
+      // queryParams.push(i + "=" + this.props.location.state.ingredients[i]);
+      /* EASIER way to query strings
+      let params = new URLSearchParams();
+      // Add parameters
+      params.append('foo', 2);
+      params.append('bar', 4);
+      // Query string is now: 'foo=2&bar=4'
+      */
     }
-    axios.post("/orders.json", order)
-      .then(response => {
-        console.log(response);
-        this.setState({loading: false, purchasing: false});
-      })
-      .catch(error => {
-        console.log(error)
-        this.setState({loading: false, purchasing: false});
-      });
+
+    queryParams.push("price=" + this.state.totalPrice);
+    const queryString = queryParams.join("&");
+
+    this.props.history.push({
+      pathname: "/checkout",
+      search: "?" + queryString
+    });
   }
 
   render() {
@@ -130,8 +127,6 @@ class BurgerBuilder extends Component {
     for (let itemKey in disabledInfo) {
       disabledInfo[itemKey] = disabledInfo[itemKey] <= 0
     }
-
-
 
     let orderSummary = null;
 
